@@ -91,10 +91,40 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    # start node
+    start = Node(state=source, parent=None, action=None)
+    frontier = QueueFrontier()
+    frontier.add(start)
+    # setting up variable for visited 
+    visited = set()
 
-    # TODO
-    raise NotImplementedError
-
+    while True:
+        if frontier.empty():
+            return None
+        node = frontier.remove()
+        if node.state == target:
+            pathr = []
+            # generation of correct path
+            while node.parent is not None:
+                pathr.append((node.action, node.state))
+                node = node.parent
+            # this loop goes in the other direction so we have to reverse 
+            pathr.reverse()
+            return pathr
+        visited.add(node.state)
+        # loading neighbours
+        neighbours = neighbors_for_person(node.state)
+        for action, state in neighbours:
+            if not frontier.contains_state(state) and state not in visited:
+                child = Node(state=state, parent=node, action=action)
+                if child.state == target:
+                    pathr = []
+                    while child.parent is not None:
+                        pathr.append((child.action, child.state))
+                        child = child.parent
+                    pathr.reverse()
+                    return pathr
+                frontier.add(child)
 
 def person_id_for_name(name):
     """
