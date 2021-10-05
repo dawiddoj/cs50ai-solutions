@@ -1,13 +1,14 @@
-from tictactoe import result
-
+from tictactoe import winner
+from tictactoe import terminal
+from tictactoe import utility
 X = "X"
 O = "O"
 EMPTY = None
 
-board = [[X, X, EMPTY],
-        [O, EMPTY, O],
-        [EMPTY, EMPTY, X]]
+board = [[EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY]]
 
-action = ((1, 1))
-
-print(result(board, action))
+print(winner(board))
+print(terminal(board))
+print(utility(board))
